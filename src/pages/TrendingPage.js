@@ -6,7 +6,7 @@ function TrendingPage() {
 
   useEffect(() => {
     const url =
-      "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=a845b904b184456e98202af0177717b3";
+      "https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c";
     axios.get(url).then((response) => {
       setPost(response.data.articles);
     });
@@ -30,7 +30,11 @@ function TrendingPage() {
             index % 4 === 0 ? "col-span-4 row-span-2 mr-2" : "col-span-1"
           } row-span-1 bg-slate-100 ml-2 p-4`}
         >
-          <img src={article.urlToImage} className="w-60 h-36 rounded-3xl" alt="article" />
+          <img
+            src={article.image}
+            className="w-60 h-36 rounded-3xl"
+            alt="article"
+          />
           <h3 className="font-montserrat font-extrabold text-xl mt-3 text-left text-black">
             {article.title}
           </h3>
