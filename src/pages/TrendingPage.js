@@ -2,20 +2,30 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function TrendingPage() {
-  const [articles, setPost] = useState([]);
+  const [articles, setArticles] = useState([]);
 
-  useEffect(() => {
-    const url =
-      "https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c";
-    axios.get(url).then((response) => {
-      setPost(response.data.articles);
-    });
-  }, []);
+useEffect(() => {
+  const url =
+    process.env.NODE_ENV === "development"
+      ? "https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c"
+      : "/api/news";
+
+  axios.get(
+    url
+  )
+  .then(res => {
+    console.log(res.data);
+    setArticles(res.data.articles);
+  })
+  .catch(err => {
+    console.log("API error:", err);
+  });
+}, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {articles.length > 0 && (
-        <div className="m-2 col-span-1 md:col-span-3 row-span-3 bg-slate-100 text-white p-4">
+        <div className="m-2 col-span-1 sm:col-span-2 md:col-span-3 row-span-3 bg-slate-100 text-white p-4">
           <h3 className="rounded-xl mb-1 text-4xl text-pretty font-montserrat font-extrabold text-black">
             {articles[0].title}
           </h3>
@@ -28,7 +38,7 @@ function TrendingPage() {
           key={index}
           className={`${
             index % 4 === 0 ? "col-span-4 row-span-2 mr-2" : "col-span-1"
-          } row-span-1 bg-slate-100 ml-2 p-4`}
+          } row-span-1 bg-slate-100 ml-2 p-4 sm:col-span-1 md:col-span-1 lg:col-span-1`}
         >
           <img
             src={article.image}
