@@ -33,67 +33,67 @@ function CategoriesPage() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Button Section */}
-      <div className="grid grid-cols-4 gap-4 px-10 py-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 px-10 py-5">
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("general")}
         >
           General
-          <img src={general} alt=" " className="w-8 h-8 ml-2" />
+          <img src={general} alt="general" className="w-8 h-8 ml-2" />
         </button>
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("business")}
         >
           Business
-          <img src={business} alt=" " className="w-8 h-8 ml-2" />
+          <img src={business} alt="business" className="w-8 h-8 ml-2" />
         </button>
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("science")}
         >
           Science
-          <img src={sci} alt=" " className="w-8 h-8 ml-2" />
+          <img src={sci} alt="science" className="w-8 h-8 ml-2" />
         </button>
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("sports")}
         >
           Sports
-          <img src={spo} alt=" " className="w-8 h-8 ml-2" />
+          <img src={spo} alt="sports" className="w-8 h-8 ml-2" />
         </button>
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("technology")}
         >
           Technology
-          <img src={tech} alt=" " className="w-8 h-8 ml-2" />
+          <img src={tech} alt="technology" className="w-8 h-8 ml-2" />
         </button>
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("entertainment")}
         >
           Entertainment
-          <img src={cine} alt=" " className="w-8 h-8 ml-2" />
+          <img src={cine} alt="entertainment" className="w-8 h-8 ml-2" />
         </button>
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("health")}
         >
           Health
-          <img src={hrt} alt=" " className="w-8 h-8 ml-2" />
+          <img src={hrt} alt="health" className="w-8 h-8 ml-2" />
         </button>
         <button
           className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("world")}
         >
           World
-          <img src={wrld} alt=" " className="w-8 h-8 ml-2" />
+          <img src={wrld} alt="world" className="w-8 h-8 ml-2" />
         </button>
       </div>
 
       {/* Content Section */}
-      <div className="p-10">
+      <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {articles.length > 0 ? (
           articles.map((article, index) => (
             <div

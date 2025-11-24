@@ -6,7 +6,7 @@ function NavBar() {
       <h1 className="rounded-xl m-1 bg-dark-blue text-left mb-1 text-7xl text-pretty italic font-montserrat font-extrabold text-white">
         The Circuit
       </h1>
-      <ul className="rounded-xl m-1 bg-dark-blue font-bold items-center list-none flex space-x-12 text-white text-xl pl-4">
+      <ul className="rounded-xl m-1 bg-dark-blue font-bold items-center list-none flex space-x-12 text-white text-xl pl-4 sm:flex-col sm:space-x-0 sm:space-y-4 sm:text-center sm:px-2">
         <li className="hover:scale-95 duration-150">
           <Link to="/HomePage">Home</Link>
         </li>

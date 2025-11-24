@@ -4,23 +4,24 @@ import axios from "axios";
 function TrendingPage() {
   const [articles, setArticles] = useState([]);
 
-useEffect(() => {
-  const url =
-    process.env.NODE_ENV === "development"
-      ? "https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c"
-      : "/api/news";
+  useEffect(() => {
+    const isProd = window.location.hostname.includes("vercel.app");
 
-  axios.get(
-    url
-  )
-  .then(res => {
-    console.log(res.data);
-    setArticles(res.data.articles);
-  })
-  .catch(err => {
-    console.log("API error:", err);
-  });
-}, []);
+    // Use serverless API in production, direct GNews in development
+    const url = isProd
+      ? "/api/news"
+      : "https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c";
+
+    axios
+      .get(url)
+      .then((res) => {
+        console.log(res.data);
+        setArticles(res.data.articles || []);
+      })
+      .catch((err) => {
+        console.log("API error:", err);
+      });
+  }, []);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -29,7 +30,9 @@ useEffect(() => {
           <h3 className="rounded-xl mb-1 text-4xl text-pretty font-montserrat font-extrabold text-black">
             {articles[0].title}
           </h3>
-          <p className=" text-black pt-2 text-sm">{articles[0].description}</p>
+          <p className="text-black pt-2 text-sm">
+            {articles[0].description}
+          </p>
         </div>
       )}
 
@@ -48,7 +51,9 @@ useEffect(() => {
           <h3 className="font-montserrat font-extrabold text-xl mt-3 text-left text-black">
             {article.title}
           </h3>
-          <p className="text-left text-sm mt-3">{article.description}</p>
+          <p className="text-left text-sm mt-3">
+            {article.description}
+          </p>
         </div>
       ))}
     </div>

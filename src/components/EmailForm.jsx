@@ -4,7 +4,6 @@ import emailjs from '@emailjs/browser';
 const Email = () => {
 
     const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
 
     const handleSubmit = (e) => {
 
@@ -23,7 +22,6 @@ const Email = () => {
         .then((response) => {
             console.log("Sending was successful:", response.text)
             setEmail('');
-            setMessage('');
         })
         .catch((error) => {
             console.log("Error in sending:", error.text)
