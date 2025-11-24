@@ -1,5 +1,7 @@
 export default async function handler(req, res) {
-  const url = "https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c";
+  const category = req.query.category || "general"; // default
+
+  const url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c`;
 
   try {
     const response = await fetch(url);

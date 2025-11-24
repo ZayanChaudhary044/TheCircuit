@@ -14,16 +14,21 @@ function CategoriesPage() {
   const [currentCategory, changeCategory] = useState("general");
 
   useEffect(() => {
-    const fetchArticles = async () => {
-      const url = `https://gnews.io/api/v4/top-headlines?category=${currentCategory}&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c`;
-      try {
-        const response = await axios.get(url);
-        setArticle(response.data.articles);
-      } catch (error) {
+    const isProd = window.location.hostname.includes("vercel.app");
+
+    // Build URL depending on environment
+    const url = isProd
+      ? `/api/news?category=${currentCategory}`
+      : `https://gnews.io/api/v4/top-headlines?category=${currentCategory}&lang=en&apikey=e732bf85fe3cfa8c18adb2df66d0be7c`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setArticle(response.data.articles || []);
+      })
+      .catch((error) => {
         console.error("Error fetching data:", error);
-      }
-    };
-    fetchArticles();
+      });
   }, [currentCategory]);
 
   const clickCategory = (category) => {
@@ -34,61 +39,52 @@ function CategoriesPage() {
     <div className="min-h-screen bg-gray-100">
       {/* Button Section */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 px-10 py-5">
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("general")}
         >
-          General
-          <img src={general} alt="general" className="w-8 h-8 ml-2" />
+          General <img src={general} alt="general" className="w-8 h-8 ml-2" />
         </button>
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("business")}
         >
-          Business
-          <img src={business} alt="business" className="w-8 h-8 ml-2" />
+          Business <img src={business} alt="business" className="w-8 h-8 ml-2" />
         </button>
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("science")}
         >
-          Science
-          <img src={sci} alt="science" className="w-8 h-8 ml-2" />
+          Science <img src={sci} alt="science" className="w-8 h-8 ml-2" />
         </button>
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("sports")}
         >
-          Sports
-          <img src={spo} alt="sports" className="w-8 h-8 ml-2" />
+          Sports <img src={spo} alt="sports" className="w-8 h-8 ml-2" />
         </button>
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("technology")}
         >
-          Technology
-          <img src={tech} alt="technology" className="w-8 h-8 ml-2" />
+          Technology <img src={tech} alt="technology" className="w-8 h-8 ml-2" />
         </button>
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("entertainment")}
         >
-          Entertainment
-          <img src={cine} alt="entertainment" className="w-8 h-8 ml-2" />
+          Entertainment <img src={cine} alt="entertainment" className="w-8 h-8 ml-2" />
         </button>
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("health")}
         >
-          Health
-          <img src={hrt} alt="health" className="w-8 h-8 ml-2" />
+          Health <img src={hrt} alt="health" className="w-8 h-8 ml-2" />
         </button>
-        <button
-          className="border-black border-2 rounded-md p-2 flex items-center justify-center"
+
+        <button className="border-black border-2 rounded-md p-2 flex items-center justify-center"
           onClick={() => clickCategory("world")}
         >
-          World
-          <img src={wrld} alt="world" className="w-8 h-8 ml-2" />
+          World <img src={wrld} alt="world" className="w-8 h-8 ml-2" />
         </button>
       </div>
 
@@ -96,10 +92,7 @@ function CategoriesPage() {
       <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {articles.length > 0 ? (
           articles.map((article, index) => (
-            <div
-              key={index}
-              className="mb-5 p-5 bg-white rounded-lg shadow-md flex flex-col items-start"
-            >
+            <div key={index} className="mb-5 p-5 bg-white rounded-lg shadow-md flex flex-col items-start">
               {article.image && (
                 <img
                   src={article.image}
@@ -115,59 +108,6 @@ function CategoriesPage() {
           <p className="text-center text-gray-500">No articles available.</p>
         )}
       </div>
-
-      {/* Footer */}
-      <footer className="bg-dark-blue rounded-xl text-white text-xs p-5 ml-1 mr-1">
-        <a
-          href="https://www.flaticon.com/free-icons/impact"
-          title="impact icons"
-          className="block"
-        >
-          Impact icons created by Smartline - Flaticon
-        </a>
-        <a
-          href="https://www.flaticon.com/free-icons/science"
-          title="science icons"
-          className="block"
-        >
-          Science icons created by Good Ware - Flaticon
-        </a>
-        <a
-          href="https://www.flaticon.com/free-icons/basketball"
-          title="basketball icons"
-          className="block"
-        >
-          Basketball icons created by Pause08 - Flaticon
-        </a>
-        <a
-          href="https://www.flaticon.com/free-icons/chip"
-          title="chip icons"
-          className="block"
-        >
-          Chip icons created by Freepik - Flaticon
-        </a>
-        <a
-          href="https://www.flaticon.com/free-icons/cinema"
-          title="cinema icons"
-          className="block"
-        >
-          Cinema icons created by Freepik - Flaticon
-        </a>
-        <a
-          href="https://www.flaticon.com/free-icons/heartbeat"
-          title="heartbeat icons"
-          className="block"
-        >
-          Heartbeat icons created by Freepik - Flaticon
-        </a>
-        <a
-          href="https://www.flaticon.com/free-icons/world"
-          title="world icons"
-          className="block"
-        >
-          World icons created by turkkub - Flaticon
-        </a>
-      </footer>
     </div>
   );
 }
